@@ -1,36 +1,35 @@
 package com.kevinjf.prodeapp.entidades;
 
 public class Equipo {
+    private int id;
     private String nombreEquipo;
-    private int partidosJugados; 
     
     public Equipo() {
     }
-    
-    public Equipo( String nombreEquipo, int partidosJugados ) {
+
+    public Equipo( int id, String nombreEquipo ) {
+        this.id = id;
         this.nombreEquipo = nombreEquipo;
-        this.partidosJugados = partidosJugados;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId( int id ) {
+        this.id = id;
+    }
+    
     public String getNombreEquipo() {
         return nombreEquipo;
     }
-
+    
     public void setNombreEquipo( String nombreEquipo ) {
         this.nombreEquipo = nombreEquipo;
     }
 
-    public int getPartidosJugados() {
-        return partidosJugados;
-    }
-
-    public void setPartidosJugados( int partidosJugados ) {
-        this.partidosJugados = partidosJugados;
-    }
-    
     @Override
     public String toString() {
-        return "Equipo {" + " nombreEquipo = " + nombreEquipo + ", partidosJugados = " + partidosJugados + " }";
+        return "Equipo { " + "id = " + id + ", nombre del Equipo = " + nombreEquipo + " }";
     }
 }
-

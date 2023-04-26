@@ -3,18 +3,18 @@ package com.kevinjf.prodeapp.entidades;
 import java.util.HashMap;
 
 public class Ronda {
-    private Integer numeroRonda;
+    private int numeroRonda;
     
     private HashMap<Integer, Partido> rondaHashMap;
 
-    public Ronda( Integer numeroRonda, HashMap<Integer, Partido> rondaHashMap ) {
+    public Ronda( int numeroRonda, HashMap<Integer, Partido> rondaHashMap ) {
         System.out.println("NUMERO RONDA: " + numeroRonda);
         System.out.println("numeroRonda.String: " + rondaHashMap.toString());
         this.numeroRonda = numeroRonda;
         this.rondaHashMap = rondaHashMap;
     }
 
-    public Ronda( Integer numeroRonda ) {
+    public Ronda( int numeroRonda ) {
         this.numeroRonda = numeroRonda;
         this.rondaHashMap = new HashMap<>();
     }
@@ -23,7 +23,7 @@ public class Ronda {
         return numeroRonda;
     }
 
-    public void setNumeroRonda( Integer numeroRonda ) {
+    public void setNumeroRonda( int numeroRonda ) {
         System.out.println("SET NUMERO RONDA: " + numeroRonda);
         this.numeroRonda = numeroRonda;
     }
@@ -36,7 +36,7 @@ public class Ronda {
         this.rondaHashMap = rondaHashMap;
     }
     
-    public Partido getPartido( Integer idPartido ) {
+    public Partido getPartido( int idPartido ) {
         Partido partido;
         partido = this.rondaHashMap.get( idPartido );
         return partido;

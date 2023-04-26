@@ -1,21 +1,40 @@
 package com.kevinjf.prodeapp.entidades;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kevinjf.prodeapp.enumeracion.ResultadoEnum;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Prode {
     private HashMap<Integer, Usuario> usuarios;
-    private final int PUNTOS_EXTRA = 2;
-    private Integer mayorPuntaje;
-    private Integer idGanador;
+    private static int PUNTOS_POR_ACIERTO = 0;
+    private static int PUNTOS_EXTRAS = 0;
+    private int mayorPuntaje;
+    private int idGanador;
 
     public Prode() {
         this.usuarios = new HashMap<>();
         this.idGanador = 0;
         this.mayorPuntaje = 0;
+        
+        ObjectMapper mapper = new ObjectMapper(); /* INSTANCIO EL MAPPER */
+        String path = "src\\main\\java\\com\\kevinjf\\prodeapp\\config.json"; /* RUTA DEL JSON */
+        File reader = new File( path ); /* CREO EL READER */
+        
+        try {
+            Map<String, Object> map = mapper.readValue( reader, new TypeReference<Map<String,Object>>(){} );
+            Prode.PUNTOS_POR_ACIERTO = (int) map.get( "PUNTOS_POR_ACIERTO" );
+            Prode.PUNTOS_EXTRAS = (int) map.get( "PUNTOS_EXTRAS" );
+        } catch( IOException e ) {
+            System.out.println( "ERROR: " + e );
+        }
     }
-
+    
     public HashMap<Integer, Usuario> getUsuarios() {
         return usuarios;
     }
@@ -28,7 +47,7 @@ public class Prode {
         return mayorPuntaje;
     }
 
-    public void setMayorPuntaje( Integer mayorPuntaje ) {
+    public void setMayorPuntaje( int mayorPuntaje ) {
         this.mayorPuntaje = mayorPuntaje;
     }
 
@@ -36,8 +55,20 @@ public class Prode {
         return idGanador;
     }
 
-    public void setIdGanador( Integer idGanador ) {
+    public void setIdGanador( int idGanador ) {
         this.idGanador = idGanador;
+    }
+    
+    public int contarAciertos( Ronda r ) {
+        int aciertos = 0;
+        for( Partido p : r.getRondaHashMap().values() ) {
+//            ResultadoEnum pronostico = Usuario.apuestasTot.get( p.getId() ).getPronostico();
+            ResultadoEnum resultado = p.resultadoPartido();
+//            if ( pronostico.equals( resultado ) ) {
+//                aciertos += this.PUNTOS_POR_ACIERTO;
+//            }
+        }
+        return aciertos;
     }
 
     public void mostrarAciertos( Torneo torneo ){
@@ -47,20 +78,20 @@ public class Prode {
                 
                 System.out.println( "RONDA N°" + ronda.getNumeroRonda() );
                 
-                Integer puntosPosibles = ronda.getRondaHashMap().size();
+                int puntosPosibles = ronda.getRondaHashMap().size();
                 
                 System.out.println( "PUNTOS POSIBLES: " + puntosPosibles );
                 
-                Integer aciertos = user.contarAciertos( ronda );
+//                int aciertos = user.contarAciertos( ronda );
                 
-                if( aciertos == puntosPosibles ) {
-                    aciertos += this.PUNTOS_EXTRA;
-                    System.out.println(user.getNombre()+" TIENE "+this.PUNTOS_EXTRA
-                            + " PUNTOS EXTRAS POR GANAR EN UNA RONDA COMPLETA!");
-                }
-                
-                user.puntosPorRonda( aciertos );
-                System.out.println( "------TERMINÓ LA RONDA------" );
+//                if( aciertos == puntosPosibles ) {
+//                    aciertos += this.PUNTOS_EXTRAS;
+//                    System.out.println(user.getNombre()+" TIENE "+this.PUNTOS_EXTRAS
+//                            + " PUNTOS EXTRAS POR GANAR EN UNA RONDA COMPLETA!");
+//                }
+//                
+//                user.puntosPorRonda( aciertos );
+//                System.out.println( "------TERMINÓ LA RONDA------" );
             }
             
             if ( user.getPuntosTotales() > this.mayorPuntaje ) {
@@ -75,7 +106,7 @@ public class Prode {
     }
     
     // Metodo que muestra los datos del array totalApuestas.
-    public void mostrarCargaApuestas() {
+    public void mostrarTickets() {
         System.out.println( "--------PRONÓSTICOS-------" );
         System.out.println( "--------------------------" );
         for( Usuario user : this.usuarios.values() ) {

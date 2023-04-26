@@ -4,58 +4,49 @@ import com.kevinjf.prodeapp.enumeracion.ResultadoEnum;
 import java.util.Objects;
 
 public class Partido {
-    private Integer idPartido;
-    private Integer fase;
-    private Integer ronda;
-    private Integer numPartido;
+    private int id;
+    private int numFase;
+    private int numRonda;
     private Equipo equipo1;
-    private Integer golesEquipo1;
-    private Integer golesEquipo2;
+    private int golesEq1;
+    private int golesEq2;
     private Equipo equipo2;
 
     public Partido() {
     }
 
-    public Partido( Integer idPartido, Integer fase, Integer ronda, Equipo equipo1, Integer golesEquipo1, Integer golesEquipo2, Equipo equipo2 ) {
-        this.idPartido = idPartido;
-        this.fase = fase;
-        this.ronda = ronda;
+    public Partido( int id, int numFase, int numRonda, Equipo equipo1, int golesEquipo1, int golesEquipo2, Equipo equipo2 ) {
+        this.id = id;
+        this.numFase = numFase;
+        this.numRonda = numRonda;
         this.equipo1 = equipo1;
-        this.golesEquipo1 = golesEquipo1;
-        this.golesEquipo2 = golesEquipo2;
+        this.golesEq1 = golesEquipo1;
+        this.golesEq2 = golesEquipo2;
         this.equipo2 = equipo2;
     }
     
-    public Integer getIdPartido() {
-        return idPartido;
+    public int getId() {
+        return id;
     }
 
-    public void setIdPartido( Integer idPartido ) {
-        this.idPartido = idPartido;
+    public void setId( int id ) {
+        this.id = id;
     }
 
-    public Integer getFase() {
-        return fase;
+    public int getNumFase() {
+        return numFase;
     }
 
-    public void setFase( Integer fase ) {
-        this.fase = fase;
+    public void setNumFase( int numFase ) {
+        this.numFase = numFase;
     }
 
-    public Integer getRonda() {
-        return ronda;
+    public int getNumRonda() {
+        return numRonda;
     }
 
-    public void setRonda( Integer ronda ) {
-        this.ronda = ronda;
-    }
-
-    public Integer getNumPartido() {
-        return numPartido;
-    }
-
-    public void setNumPartido( Integer numPartido ) {
-        this.numPartido = numPartido;
+    public void setNumRonda( int numRonda ) {
+        this.numRonda = numRonda;
     }
     
     public Equipo getEquipo1() {
@@ -66,20 +57,20 @@ public class Partido {
         this.equipo1 = equipo1;
     }
 
-    public Integer getGolesEquipo1() {
-        return golesEquipo1;
+    public int getGolesEq1() {
+        return golesEq1;
     }
 
-    public void setGolesEquipo1( Integer golesEquipo1 ) {
-        this.golesEquipo1 = golesEquipo1;
+    public void setGolesEq1( int golesEquipo1 ) {
+        this.golesEq1 = golesEquipo1;
     }
 
-    public Integer getGolesEquipo2() {
-        return golesEquipo2;
+    public int getGolesEq2() {
+        return golesEq2;
     }
 
-    public void setGolesEquipo2( Integer golesEquipo2 ) {
-        this.golesEquipo2 = golesEquipo2;
+    public void setGolesEq2( int golesEq2 ) {
+        this.golesEq2 = golesEq2;
     }
 
     public Equipo getEquipo2() {
@@ -93,13 +84,13 @@ public class Partido {
     // PROCESO EL RESULTADO DE CADA PARTIDO PARA SABER QUIÉN GANÓ
     public ResultadoEnum resultadoPartido() { 
         ResultadoEnum resultadoPartido = null;
-        if (golesEquipo1 > golesEquipo2) {
+        if (golesEq1 > golesEq2) {
             resultadoPartido = ResultadoEnum.GANA;
         }
-        if (golesEquipo1 < golesEquipo2) {
+        if (golesEq1 < golesEq2) {
             resultadoPartido = ResultadoEnum.PIERDE;
         }
-        if (Objects.equals(golesEquipo1, golesEquipo2)) {
+        if (Objects.equals(golesEq1, golesEq2)) {
             resultadoPartido = ResultadoEnum.EMPATE;
         }
         return resultadoPartido;
@@ -107,8 +98,7 @@ public class Partido {
     
     @Override
     public String toString() {
-        return "[ Partido = "+idPartido+" "+equipo1.getNombreEquipo()
-        +" = "+golesEquipo1+" - "+golesEquipo2+" = "+equipo2.getNombreEquipo()+" ]";
+        return "[ Partido = "+id+" "+equipo1.getNombreEquipo()
+        +" = "+golesEq1+" - "+golesEq2+" = "+equipo2.getNombreEquipo()+" ]";
     }
 }
-

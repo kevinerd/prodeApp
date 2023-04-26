@@ -4,6 +4,7 @@ com\kevinjf\prodeapp\entidades\Ronda.class
 com\kevinjf\prodeapp\entidades\Usuario.class
 com\kevinjf\prodeapp\MainClass.class
 com\kevinjf\prodeapp\entidades\Partido.class
+com\kevinjf\prodeapp\entidades\Prode$1.class
 com\kevinjf\prodeapp\entidades\Equipo.class
 com\kevinjf\prodeapp\enumeracion\ResultadoEnum.class
 com\kevinjf\prodeapp\ConexionDB.class

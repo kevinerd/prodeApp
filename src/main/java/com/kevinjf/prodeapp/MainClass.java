@@ -33,25 +33,27 @@ public class MainClass {
         
         // Busco los partidos
         ConexionDB.getPartidos( torneo );
+        System.out.println("FASE 1: " + torneo.getFase1());
+        System.out.println("FASE 2: " + torneo.getFase2());
         
         // Busco los pronósticos
-        ConexionDB.getPronosticos( prode.getUsuarios() );
-        
-        // Busco
-        prode.mostrarCargaApuestas();
-        System.out.println("-------------------------");
-        System.out.println("-------------------------");
-        
-        // Calculo los aciertos
-        prode.mostrarAciertos( torneo );
-        System.out.println("-------------------------");
-        
-        // Busco el usuario con más aciertos
-        prode.usuarioGanador();
-        
-        System.out.println("-------------------------");
-        System.out.println("-------------------------");
-        System.out.println("GRACIAS POR USAR PRODE APP");
-        System.out.println("-------------------------");
+//        ConexionDB.getPronosticos( prode.getUsuarios() );
+//        
+//        // Busco
+//        prode.mostrarTickets();
+//        System.out.println("-------------------------");
+//        System.out.println("-------------------------");
+//        
+//        // Calculo los aciertos
+//        prode.mostrarAciertos( torneo );
+//        System.out.println("-------------------------");
+//        
+//        // Busco el usuario con más aciertos
+//        prode.usuarioGanador();
+//        
+//        System.out.println("-------------------------");
+//        System.out.println("-------------------------");
+//        System.out.println("GRACIAS POR USAR PRODE APP");
+//        System.out.println("-------------------------");
     }
 }

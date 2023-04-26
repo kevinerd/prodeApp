@@ -3,30 +3,42 @@ package com.kevinjf.prodeapp.entidades;
 import com.kevinjf.prodeapp.enumeracion.ResultadoEnum;
 
 public class Ticket {
-    private int idPartido;
-    private int equipoGanador;
+    private int id;
+    private Usuario user;
+    private Partido partido;
     private ResultadoEnum pronostico;
 
-    public Ticket(int idPartido, int equipoGanador, ResultadoEnum pronostico) {
-        this.idPartido = idPartido;
-        this.equipoGanador = equipoGanador;
+    public Ticket() {
+    }
+
+    public Ticket(Usuario user, Partido partido, ResultadoEnum pronostico) {
+        this.user = user;
+        this.partido = partido;
         this.pronostico = pronostico;
     }
 
-    public int getIdPartido() {
-        return idPartido;
+    public int getId() {
+        return id;
     }
 
-    public void setIdPartido(int idPartido) {
-        this.idPartido = idPartido;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getEquipoGanador() {
-        return equipoGanador;
+    public Usuario getUser() {
+        return user;
     }
 
-    public void setEquipoGanador(int equipoGanador) {
-        this.equipoGanador = equipoGanador;
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+
+    public Partido getPartido() {
+        return partido;
+    }
+
+    public void setPartido(Partido partido) {
+        this.partido = partido;
     }
 
     public ResultadoEnum getPronostico() {
@@ -39,6 +51,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket { " + "idPartido = " + idPartido + ", pronóstico = " + pronostico + " }";
+        return "Ticket { " + "id = " + id + ", user = " + user + ", partido = " + partido + ", pronostico = " + pronostico + " }";
     }
 }

@@ -50,7 +50,7 @@ public class ConexionDB {
         try ( Connection conn = DriverManager.getConnection( URL_DB, USER, PASS ) ) {
             Statement st = conn.createStatement();
             
-            ResultSet rs = st.executeQuery( "SELECT * FROM usuarios" );
+            ResultSet rs = st.executeQuery( "SELECT * FROM usuario" );
             
             while( rs.next() ) {
                 int dni = rs.getInt( "dni" );
@@ -68,19 +68,18 @@ public class ConexionDB {
         }
     }
 
-    public static void getEquipos( HashMap<String, Equipo> equipos ) throws SQLException {
+    public static void getEquipos( HashMap<Integer, Equipo> equipos ) throws SQLException {
         try ( Connection conn = DriverManager.getConnection( URL_DB, USER, PASS ) ) {
             Statement st = conn.createStatement();
             
-            ResultSet rs = st.executeQuery( "SELECT * FROM equipos" );
+            ResultSet rs = st.executeQuery( "SELECT * FROM equipo" );
             
             while( rs.next() ) {
-                String nombreEq = rs.getString( "equipo" );
-                int pj = rs.getInt( "partidosJugados" );
-                Equipo eq = new Equipo( nombreEq, pj );
-                equipos.put( nombreEq, eq );
+                int id = rs.getInt( "id" );
+                String nombreEq = rs.getString( "nombre" );
+                Equipo eq = new Equipo( id, nombreEq );
+                equipos.put( id, eq );
             }
-            
             System.out.println( "EQUIPOS CARGADOS!" );
             
             rs.close();
@@ -93,46 +92,80 @@ public class ConexionDB {
     public static void getPartidos( Torneo torneo ) throws SQLException {
         try ( Connection conn = DriverManager.getConnection( URL_DB, USER, PASS ) ) {
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery( "SELECT * FROM partidos ORDER BY fase ASC, ronda ASC;" );
-            
-            Integer countRondas = 1;
-            Ronda rondaaa = new Ronda( countRondas );
+            ResultSet rs = st.executeQuery( "SELECT * FROM partido ORDER BY num_fase ASC, num_ronda ASC;" );
             
             while( rs.next() ) {
-                System.out.println("COUNT RONDAS WHILE: "+ countRondas);
-                Integer idPartido = rs.getInt( "idPartido" );
-                Integer fase = rs.getInt("fase");
-                Integer ronda = rs.getInt("ronda");
-                Equipo eq1 = torneo.buscarEquipo( rs.getString( "equipo1" ) );
-                Integer golesEq1 = rs.getInt( "golesEq1" );
-                Integer golesEq2 = rs.getInt( "golesEq2" );
-                Equipo eq2 = torneo.buscarEquipo( rs.getString( "equipo2" ) );
+                int id = rs.getInt( "id" );
+                int numFase = rs.getInt( "num_fase" );
+                int numRonda = rs.getInt( "num_ronda" );
+                Equipo equipo1 = torneo.buscarEquipo( rs.getInt( "equipo_id1" ) );
+                int golesEq1 = rs.getInt( "goles_eq1" );
+                int golesEq2 = rs.getInt( "goles_eq2" );
+                Equipo equipo2 = torneo.buscarEquipo( rs.getInt( "equipo_id2" ) );
                 
-                Partido partido = new Partido( idPartido, fase, ronda, eq1, golesEq1, golesEq2, eq2 );
-                
-                System.out.println("Partido: " + partido.toString());
-                if( Objects.equals(ronda, countRondas) ) {
-                    System.out.println("EQUALS RONDA: " + Objects.equals(ronda, countRondas));
-                    torneo.getPartidos().put( countRondas, rondaaa );
-                    System.out.println("COUNT RONDAS IF: " + countRondas);
-                    
-//                    countRondas++;
-//                    rondaaa = new Ronda( countRondas );
-                }
-                
-                rondaaa.getRondaHashMap().put( partido.getIdPartido(), partido );
-                System.out.println("RONDAAA IF: " + rondaaa.toString());
-                if ( countRondas == torneo.getTOTAL_RONDAS() ) {
-                    System.out.println("IF COUNTRONDAS: " + countRondas + rondaaa.toString() );
-                    torneo.getPartidos().put( countRondas, rondaaa );
+                Partido partido = new Partido(id, numFase, numRonda, equipo1, golesEq1, golesEq2, equipo2);
+                if( partido.getNumFase() == 1 ) {
+                    torneo.getFase1().add(partido);
+                } else {
+                    torneo.getFase2().add(partido);
                 }
             }
-            System.out.println( "PARTIDOS CARGADOS!" );
-            
-            rs.close();
         } catch( Exception e ) {
             System.out.println( "ERROR: " + e );
         }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//            int countRondas = 1;
+//            Ronda rondaaa = new Ronda( countRondas );
+//            
+//            while( rs.next() ) {
+//                System.out.println("COUNT RONDAS WHILE: "+ countRondas);
+//                int idPartido = rs.getInt( "idPartido" );
+//                int fase = rs.getInt("fase");
+//                int ronda = rs.getInt("ronda");
+//                Equipo eq1 = torneo.buscarEquipo( rs.getString( "equipo1" ) );
+//                int golesEq1 = rs.getInt( "golesEq1" );
+//                int golesEq2 = rs.getInt( "golesEq2" );
+//                Equipo eq2 = torneo.buscarEquipo( rs.getString( "equipo2" ) );
+//                
+//                Partido partido = new Partido( idPartido, fase, ronda, eq1, golesEq1, golesEq2, eq2 );
+//                
+//                System.out.println("Partido: " + partido.toString());
+//                if( Objects.equals(ronda, countRondas) ) {
+//                    System.out.println("EQUALS RONDA: " + Objects.equals(ronda, countRondas));
+//                    torneo.getPartidos().put( countRondas, rondaaa );
+//                    System.out.println("COUNT RONDAS IF: " + countRondas);
+//                    
+////                    countRondas++;
+////                    rondaaa = new Ronda( countRondas );
+//                }
+//                
+//                rondaaa.getRondaHashMap().put( partido.getId(), partido );
+//                System.out.println("RONDAAA IF: " + rondaaa.toString());
+//                if ( countRondas == torneo.getTOTAL_RONDAS() ) {
+//                    System.out.println("IF COUNTRONDAS: " + countRondas + rondaaa.toString() );
+//                    torneo.getPartidos().put( countRondas, rondaaa );
+//                }
+//            }
+//            System.out.println( "PARTIDOS CARGADOS!" );
+//            
+//            rs.close();
+//        } catch( Exception e ) {
+//            System.out.println( "ERROR: " + e );
+//        }
     }
     
     public static void getPronosticos( HashMap<Integer, Usuario> usuarios ) throws SQLException {
@@ -140,12 +173,12 @@ public class ConexionDB {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery( "SELECT * FROM pronosticos" );
             
-            Integer pronosticoUser = 0;
+            int pronosticoUser = 0;
             
             while( rs.next() ) {
-                Integer dni = rs.getInt( "dni" );
-                Integer idPartido = rs.getInt( "idPartido" );
-                Integer pronostico = rs.getInt( "pronostico" );
+                int dni = rs.getInt( "dni" );
+                int idPartido = rs.getInt( "idPartido" );
+                int pronostico = rs.getInt( "pronostico" );
                 
                 ResultadoEnum pronosticoEnum;
                 
@@ -167,8 +200,8 @@ public class ConexionDB {
                 }
                 
                 Usuario usuario = usuarios.get( dni );
-                Ticket ticket = new Ticket( idPartido, pronosticoUser, pronosticoEnum );
-                usuario.getApuestasTot().put( ticket.getIdPartido(), ticket );
+//                Ticket ticket = new Ticket( idPartido, pronosticoUser, pronosticoEnum );
+//                usuario.getApuestasTot().put( ticket.getId(), ticket );
             }
             
             System.out.println( "PRONÓSTICOS CARGADOS!" );

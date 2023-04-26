@@ -1,5 +1,7 @@
 {
     "URL_DB":"jdbc:mysql://localhost:3306/prode_app",
     "USER":"root",
-    "PASS":"root"
+    "PASS":"root",
+    "PUNTOS_EXTRAS":2,
+    "PUNTOS_POR_ACIERTO":1
 }

@@ -1,15 +1,13 @@
 package com.kevinjf.prodeapp.entidades;
 
-import com.kevinjf.prodeapp.enumeracion.ResultadoEnum;
 import java.util.HashMap;
 
 public class Usuario implements Comparable<Usuario> {
     private HashMap<Integer, Ticket> apuestasTot;
     
-    private Integer dni;
+    private int dni;
     private String nombre;
-    private Integer puntosTotales;
-    private final Integer PUNTOS_POR_ACIERTO = 1;
+    private int puntosTotales;
 
     public HashMap<Integer, Ticket> getApuestasTot() {
         return apuestasTot;
@@ -23,7 +21,7 @@ public class Usuario implements Comparable<Usuario> {
         return dni;
     }
 
-    public void setDni( Integer dni ) {
+    public void setDni( int dni ) {
         this.dni = dni;
     }
 
@@ -39,28 +37,15 @@ public class Usuario implements Comparable<Usuario> {
         return puntosTotales;
     }
 
-    public void setPuntosTotales( Integer puntosTotales ) {
+    public void setPuntosTotales( int puntosTotales ) {
         this.puntosTotales = puntosTotales;
     }
 
-    public Usuario( Integer dni, String nombre ) {
+    public Usuario( int dni, String nombre ) {
         this.dni = dni;
         this.puntosTotales = 0;
         this.nombre = nombre;
         this.apuestasTot = new HashMap<>();
-    }   
-
-    
-    public int contarAciertos( Ronda r ) {
-        int aciertos = 0;
-        for( Partido p : r.getRondaHashMap().values() ) {
-            ResultadoEnum pronostico = this.apuestasTot.get( p.getIdPartido() ).getPronostico();
-            ResultadoEnum resultado = p.resultadoPartido();
-            if ( pronostico.equals( resultado ) ) {
-                aciertos += this.PUNTOS_POR_ACIERTO;
-            }
-        }
-        return aciertos;
     }
 
     @Override
@@ -72,7 +57,7 @@ public class Usuario implements Comparable<Usuario> {
         return msj;
     } 
     
-    public void puntosPorRonda( Integer aciertos ){
+    public void puntosPorRonda( int aciertos ){
         this.puntosTotales += aciertos;
     }
     

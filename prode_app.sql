@@ -1,291 +1,295 @@
-CREATE DATABASE `prode_app` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE `prode_app` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE prode_app;
 
--- prode_app.usuarios definition
-CREATE TABLE `usuarios` (
-	`dni` int DEFAULT NULL,
-	`nombre` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- prode_app.equipo definition
+CREATE TABLE `equipo` (
+	`id` INT UNSIGNED NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
+	`nombre` varchar(50) NOT NULL
+);
 
-INSERT INTO prode_app.usuarios (dni, nombre) VALUES
+INSERT INTO prode_app.equipo (nombre) VALUES
+	('Rayos del Sur'),
+	('Lobos Plateados'),
+	('Halcones del Este'),
+	('Toros del Oeste'),
+	('Dragones de la Montaña'),
+	('Tigres del Norte'),
+	('Escorpiones de la Costa'),
+	('Águilas de la Pampa'),
+	('Leones del Río'),
+	('Centauros de la Cordillera');
+INSERT INTO prode_app.equipo (nombre) VALUES
+	('Piratas del Atlántico'),
+	('Fénix de la Ciudad'),
+	('Titanes del Interior'),
+	('Zorros del Litoral'),
+	('Panteras del Desierto'),
+	('Tormentas del Sur');
+
+-- prode_app.usuario definition
+CREATE TABLE `usuario` (
+	`dni` INT UNSIGNED NOT NULL PRIMARY KEY,
+	`nombre` varchar(50) NOT NULL
+);
+
+INSERT INTO prode_app.usuario (dni, nombre) VALUES
 	(40752822,'SOFIA FERNANDEZ'),
 	(36980143,'MARCOS GONZALEZ'),
 	(43529384,'VALENTINA RUIZ'),
 	(38476957,'TOMAS SANCHEZ'),
 	(42921618,'FLORENCIA GARCIA');
 
--- prode_app.equipos definition
-CREATE TABLE `equipos` (
-	`equipo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-	`partidosJugados` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- prode_app.partido definition
+CREATE TABLE `partido` (
+	`id` INT UNSIGNED NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
+    `num_fase` INT UNSIGNED NOT NULL,
+    `num_ronda` INT UNSIGNED NOT NULL,
+	`equipo_id1` INT UNSIGNED NOT NULL,
+	`goles_eq1` INT UNSIGNED NOT NULL,
+	`goles_eq2` INT UNSIGNED NOT NULL,
+	`equipo_id2` INT UNSIGNED NOT NULL,
+	FOREIGN KEY (equipo_id1) REFERENCES equipo(id),
+	FOREIGN KEY (equipo_id2) REFERENCES equipo(id)
+);
 
-INSERT INTO prode_app.equipos (equipo, partidosJugados) VALUES
-	('Rayos del Sur',4),
-	('Lobos Plateados',4),
-	('Halcones del Este',4),
-	('Toros del Oeste',4),
-	('Dragones de la Montaña',4),
-	('Tigres del Norte',4),
-	('Escorpiones de la Costa',4),
-	('Águilas de la Pampa',4),
-	('Leones del Río',4),
-	('Centauros de la Cordillera',4);
-INSERT INTO prode_app.equipos (equipo, partidosJugados) VALUES
-	('Piratas del Atlántico',4),
-	('Fénix de la Ciudad',4),
-	('Titanes del Interior',4),
-	('Zorros del Litoral',4),
-	('Panteras del Desierto',4),
-	('Tormentas del Sur',4);
+INSERT INTO prode_app.partido(num_fase,num_ronda,equipo_id1,goles_eq1,goles_eq2,equipo_id2) VALUES
+	(1,1,1,3,2,6),
+	(1,1,3,1,0,13),
+	(1,1,5,2,2,11),
+	(1,1,7,4,1,14),
+	(1,1,8,2,0,12),
+	(1,1,9,3,1,15),
+	(1,1,2,2,1,16),
+	(1,1,4,0,0,10),
+	(1,2,1,2,1,10),
+	(1,2,3,3,2,16);
+INSERT INTO prode_app.partido(num_fase,num_ronda,equipo_id1,goles_eq1,goles_eq2,equipo_id2) VALUES
+	(1,2,5,1,1,15),
+	(1,2,7,2,0,12),
+	(1,2,8,1,2,14),
+	(1,2,9,2,1,11),
+	(1,2,2,1,0,13),
+	(1,2,4,1,1,6),
+	(2,1,1,2,1,4),
+	(2,1,2,1,2,5),
+	(2,1,3,3,0,9),
+	(2,1,16,0,1,8);
+INSERT INTO prode_app.partido(num_fase,num_ronda,equipo_id1,goles_eq1,goles_eq2,equipo_id2) VALUES
+	(2,1,6,2,2,7),
+	(2,1,13,1,0,14),
+	(2,1,11,1,3,10),
+	(2,1,12,2,1,15),
+	(2,2,1,2,1,15),
+	(2,2,2,3,2,12),
+	(2,2,3,1,0,11),
+	(2,2,16,2,2,13),
+	(2,2,6,2,1,14),
+	(2,2,4,0,1,7);
+INSERT INTO prode_app.partido(num_fase,num_ronda,equipo_id1,goles_eq1,goles_eq2,equipo_id2) VALUES
+	(2,2,5,2,2,8),
+	(2,2,9,3,1,10);
 
--- prode_app.partidos definition
-CREATE TABLE `partidos` (
-	`idPartido` int DEFAULT NULL,
-    `fase` int DEFAULT NULL,
-    `ronda` int DEFAULT NULL,
-    `numPartido` int DEFAULT NULL,
-	`equipo1` varchar(50) DEFAULT NULL,
-	`golesEq1` int DEFAULT NULL,
-	`golesEq2` int DEFAULT NULL,
-	`equipo2` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO prode_app.partidos(idPartido,fase,ronda,numPartido,equipo1,golesEq1,golesEq2,equipo2) VALUES
-	(111,1,1,1,'Rayos del Sur',3,2,'Tigres del Norte'),
-	(112,1,1,2,'Halcones del Este',1,0,'Titanes del Interior'),
-	(113,1,1,3,'Dragones de la Montaña',2,2,'Piratas del Atlántico'),
-	(114,1,1,4,'Escorpiones de la Costa',4,1,'Zorros del Litoral'),
-	(115,1,1,5,'Águilas de la Pampa',2,0,'Fénix de la Ciudad'),
-	(116,1,1,6,'Leones del Río',3,1,'Panteras del Desierto'),
-	(117,1,1,7,'Lobos Plateados',2,1,'Tormentas del Sur'),
-	(118,1,1,8,'Toros del Oeste',0,0,'Centauros de la Cordillera'),
-	(121,1,2,1,'Rayos del Sur',2,1,'Centauros de la Cordillera'),
-	(122,1,2,2,'Halcones del Este',3,2,'Tormentas del Sur');
-INSERT INTO prode_app.partidos(idPartido,fase,ronda,numPartido,equipo1,golesEq1,golesEq2,equipo2) VALUES
-	(123,1,2,3,'Dragones de la Montaña',1,1,'Panteras del Desierto'),
-	(124,1,2,4,'Escorpiones de la Costa',2,0,'Fénix de la Ciudad'),
-	(125,1,2,5,'Águilas de la Pampa',1,2,'Zorros del Litoral'),
-	(126,1,2,6,'Leones del Río',2,1,'Piratas del Atlántico'),
-	(127,1,2,7,'Lobos Plateados',1,0,'Titanes del Interior'),
-	(128,1,2,8,'Toros del Oeste',1,1,'Tigres del Norte'),
-	(211,2,1,1,'Rayos del Sur',2,1,'Toros del Oeste'),
-	(212,2,1,2,'Lobos Plateados',1,2,'Dragones de la Montaña'),
-	(213,2,1,3,'Halcones del Este',3,0,'Leones del Río'),
-	(214,2,1,4,'Tormentas del Sur',0,1,'Águilas de la Pampa');
-INSERT INTO prode_app.partidos(idPartido,fase,ronda,numPartido,equipo1,golesEq1,golesEq2,equipo2) VALUES
-	(215,2,1,5,'Tigres del Norte',2,2,'Escorpiones de la Costa'),
-	(216,2,1,6,'Titanes del Interior',1,0,'Zorros del Litoral'),
-	(217,2,1,7,'Piratas del Atlántico',1,3,'Centauros de la Cordillera'),
-	(218,2,1,8,'Fénix de la Ciudad',2,1,'Panteras del Desierto'),
-	(221,2,2,1,'Rayos del Sur',2,1,'Panteras del Desierto'),
-	(222,2,2,2,'Lobos Plateados',3,2,'Fénix de la Ciudad'),
-	(223,2,2,3,'Halcones del Este',1,0,'Piratas del Atlántico'),
-	(224,2,2,4,'Tormentas del Sur',2,2,'Titanes del Interior'),
-	(225,2,2,5,'Tigres del Norte',2,1,'Zorros del Litoral'),
-	(226,2,2,6,'Toros del Oeste',0,1,'Escorpiones de la Costa');
-INSERT INTO prode_app.partidos(idPartido,fase,ronda,numPartido,equipo1,golesEq1,golesEq2,equipo2) VALUES
-	(227,2,2,7,'Dragones de la Montaña',2,2,'Águilas de la Pampa'),
-	(228,2,2,8,'Leones del Río',3,1,'Centauros de la Cordillera');
-
--- prode_app.pronosticos definition
-CREATE TABLE `pronosticos` (
-	`dni` int DEFAULT NULL,
-	`idPartido` int NOT NULL,
-	`pronostico` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+-- prode_app.ticket definition
+CREATE TABLE `ticket` (
+	`id` INT UNSIGNED NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
+	`usuario_dni` INT UNSIGNED NOT NULL,
+	`partido_id` INT UNSIGNED NOT NULL,
+	`pronostico` INT UNSIGNED NOT NULL,
+	FOREIGN KEY (usuario_dni) REFERENCES usuario(dni),
+	FOREIGN KEY (partido_id) REFERENCES partido(id)
+);
 
 -- PERSONA 1
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(40752822,111,2),
-	(40752822,112,1),
-	(40752822,113,3),
-	(40752822,114,2),
-	(40752822,115,1),
-	(40752822,116,3),
-	(40752822,117,1),
-	(40752822,118,3),
-	(40752822,121,1),
-	(40752822,122,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(40752822,123,1),
-	(40752822,124,3),
-	(40752822,125,2),
-	(40752822,126,2),
-	(40752822,127,1),
-	(40752822,128,1),
-	(40752822,211,2),
-	(40752822,212,1),
-	(40752822,213,2),
-	(40752822,214,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(40752822,215,1),
-	(40752822,216,2),
-	(40752822,217,3),
-	(40752822,218,2),
-	(40752822,221,1),
-	(40752822,222,2),
-	(40752822,223,2),
-	(40752822,224,3),
-	(40752822,225,1),
-	(40752822,226,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(40752822,227,2),
-	(40752822,228,3);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(40752822,1,2),
+	(40752822,2,1),
+	(40752822,3,3),
+	(40752822,4,2),
+	(40752822,5,1),
+	(40752822,6,3),
+	(40752822,7,1),
+	(40752822,8,3),
+	(40752822,9,1),
+	(40752822,10,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(40752822,11,1),
+	(40752822,12,3),
+	(40752822,13,2),
+	(40752822,14,2),
+	(40752822,15,1),
+	(40752822,16,1),
+	(40752822,17,2),
+	(40752822,18,1),
+	(40752822,19,2),
+	(40752822,20,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(40752822,21,1),
+	(40752822,22,2),
+	(40752822,23,3),
+	(40752822,24,2),
+	(40752822,25,1),
+	(40752822,26,2),
+	(40752822,27,2),
+	(40752822,28,3),
+	(40752822,29,1),
+	(40752822,30,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(40752822,31,2),
+	(40752822,3,3);
 -- FIN PERSONA 1
 
 -- PERSONA 2
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(36980143,111,2),
-	(36980143,112,3),
-	(36980143,113,2),
-	(36980143,114,1),
-	(36980143,115,2),
-	(36980143,116,1),
-	(36980143,117,3),
-	(36980143,118,2),
-	(36980143,121,3),
-	(36980143,122,1);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(36980143,123,1),
-	(36980143,124,2),
-	(36980143,125,2),
-	(36980143,126,1),
-	(36980143,127,2),
-	(36980143,128,3),
-	(36980143,211,3),
-	(36980143,212,2),
-	(36980143,213,1),
-	(36980143,214,1);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(36980143,215,1),
-	(36980143,216,3),
-	(36980143,217,1),
-	(36980143,218,1),
-	(36980143,221,1),
-	(36980143,222,3),
-	(36980143,223,1),
-	(36980143,224,2),
-	(36980143,225,3),
-	(36980143,226,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(36980143,227,2),
-	(36980143,228,3);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(36980143,1,2),
+	(36980143,2,3),
+	(36980143,3,2),
+	(36980143,4,1),
+	(36980143,5,2),
+	(36980143,6,1),
+	(36980143,7,3),
+	(36980143,8,2),
+	(36980143,9,3),
+	(36980143,10,1);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(36980143,11,1),
+	(36980143,12,2),
+	(36980143,13,2),
+	(36980143,14,1),
+	(36980143,15,2),
+	(36980143,16,3),
+	(36980143,17,3),
+	(36980143,18,2),
+	(36980143,19,1),
+	(36980143,20,1);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(36980143,21,1),
+	(36980143,22,3),
+	(36980143,23,1),
+	(36980143,24,1),
+	(36980143,25,1),
+	(36980143,26,3),
+	(36980143,27,1),
+	(36980143,28,2),
+	(36980143,29,3),
+	(36980143,30,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(36980143,31,2),
+	(36980143,32,3);
 -- FIN PERSONA 2
 
 -- PERSONA 3
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(43529384,111,2),
-	(43529384,112,3),
-	(43529384,113,1),
-	(43529384,114,2),
-	(43529384,115,3),
-	(43529384,116,2),
-	(43529384,117,3),
-	(43529384,118,1),
-	(43529384,121,3),
-	(43529384,122,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(43529384,123,2),
-	(43529384,124,2),
-	(43529384,125,3),
-	(43529384,126,1),
-	(43529384,127,1),
-	(43529384,128,1),
-	(43529384,211,3),
-	(43529384,212,2),
-	(43529384,213,1),
-	(43529384,214,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(43529384,215,2),
-	(43529384,216,2),
-	(43529384,217,1),
-	(43529384,218,1),
-	(43529384,221,1),
-	(43529384,222,3),
-	(43529384,223,1),
-	(43529384,224,2),
-	(43529384,225,1),
-	(43529384,226,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(43529384,227,1),
-	(43529384,228,3);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(43529384,1,2),
+	(43529384,2,3),
+	(43529384,3,1),
+	(43529384,4,2),
+	(43529384,5,3),
+	(43529384,6,2),
+	(43529384,7,3),
+	(43529384,8,1),
+	(43529384,9,3),
+	(43529384,10,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(43529384,11,2),
+	(43529384,12,2),
+	(43529384,13,3),
+	(43529384,14,1),
+	(43529384,15,1),
+	(43529384,16,1),
+	(43529384,17,3),
+	(43529384,18,2),
+	(43529384,19,1),
+	(43529384,20,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(43529384,21,2),
+	(43529384,22,2),
+	(43529384,23,1),
+	(43529384,24,1),
+	(43529384,25,1),
+	(43529384,26,3),
+	(43529384,27,1),
+	(43529384,28,2),
+	(43529384,29,1),
+	(43529384,30,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(43529384,31,1),
+	(43529384,32,3);
 -- FIN PERSONA 3
 
 -- PERSONA 4
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(38476957,111,2),
-	(38476957,112,2),
-	(38476957,113,2),
-	(38476957,114,1),
-	(38476957,115,1),
-	(38476957,116,3),
-	(38476957,117,1),
-	(38476957,118,3),
-	(38476957,121,1),
-	(38476957,122,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(38476957,123,1),
-	(38476957,124,2),
-	(38476957,125,1),
-	(38476957,126,3),
-	(38476957,127,1),
-	(38476957,128,3),
-	(38476957,211,3),
-	(38476957,212,2),
-	(38476957,213,1),
-	(38476957,214,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(38476957,215,1),
-	(38476957,216,2),
-	(38476957,217,2),
-	(38476957,218,3),
-	(38476957,221,1),
-	(38476957,222,1),
-	(38476957,223,3),
-	(38476957,224,2),
-	(38476957,225,1),
-	(38476957,226,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(38476957,227,1),
-	(38476957,228,3);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(38476957,1,2),
+	(38476957,2,2),
+	(38476957,3,2),
+	(38476957,4,1),
+	(38476957,5,1),
+	(38476957,6,3),
+	(38476957,7,1),
+	(38476957,8,3),
+	(38476957,9,1),
+	(38476957,10,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(38476957,11,1),
+	(38476957,12,2),
+	(38476957,13,1),
+	(38476957,14,3),
+	(38476957,15,1),
+	(38476957,16,3),
+	(38476957,17,3),
+	(38476957,18,2),
+	(38476957,19,1),
+	(38476957,20,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(38476957,21,1),
+	(38476957,22,2),
+	(38476957,23,2),
+	(38476957,24,3),
+	(38476957,25,1),
+	(38476957,26,1),
+	(38476957,27,3),
+	(38476957,28,2),
+	(38476957,29,1),
+	(38476957,30,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(38476957,31,1),
+	(38476957,32,3);
 -- FIN PERSONA 4
 
 -- PERSONA 5
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(42921618,111,1),
-	(42921618,112,2),
-	(42921618,113,1),
-	(42921618,114,3),
-	(42921618,115,2),
-	(42921618,116,1),
-	(42921618,117,1),
-	(42921618,118,3),
-	(42921618,121,3),
-	(42921618,122,1);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(42921618,123,2),
-	(42921618,124,2),
-	(42921618,125,1),
-	(42921618,126,3),
-	(42921618,127,2),
-	(42921618,128,1),
-	(42921618,211,3),
-	(42921618,212,3),
-	(42921618,213,1),
-	(42921618,214,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(42921618,215,1),
-	(42921618,216,2),
-	(42921618,217,2),
-	(42921618,218,3),
-	(42921618,221,1),
-	(42921618,222,3),
-	(42921618,223,1),
-	(42921618,224,3),
-	(42921618,225,3),
-	(42921618,226,2);
-INSERT INTO prode_app.pronosticos (dni,idPartido,pronostico) VALUES
-	(42921618,227,2),
-	(42921618,228,3);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(42921618,1,1),
+	(42921618,2,2),
+	(42921618,3,1),
+	(42921618,4,3),
+	(42921618,5,2),
+	(42921618,6,1),
+	(42921618,7,1),
+	(42921618,8,3),
+	(42921618,9,3),
+	(42921618,10,1);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(42921618,11,2),
+	(42921618,12,2),
+	(42921618,13,1),
+	(42921618,14,3),
+	(42921618,15,2),
+	(42921618,16,1),
+	(42921618,17,3),
+	(42921618,18,3),
+	(42921618,19,1),
+	(42921618,20,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(42921618,21,1),
+	(42921618,22,2),
+	(42921618,23,2),
+	(42921618,24,3),
+	(42921618,25,1),
+	(42921618,26,3),
+	(42921618,27,1),
+	(42921618,28,3),
+	(42921618,29,3),
+	(42921618,30,2);
+INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
+	(42921618,31,2),
+	(42921618,32,3);
 -- FIN PERSONA 5
