@@ -26,34 +26,33 @@ public class MainClass {
         System.out.println("-------------------------");
         
         // Busco los usuarios
-        ConexionDB.getUsuarios( prode.getUsuarios() );
+        ConexionDB.getUsuarios( prode.getUsuariosHashMap() );
         
         // Busco los equipos
         ConexionDB.getEquipos( torneo.getEquiposHashMap() );
         
         // Busco los partidos
-        ConexionDB.getPartidos( torneo );
-        System.out.println("FASE 1: " + torneo.getFase1());
-        System.out.println("FASE 2: " + torneo.getFase2());
+        ConexionDB.getPartidos( torneo, torneo.getPartidos() );
         
         // Busco los pronósticos
-//        ConexionDB.getPronosticos( prode.getUsuarios() );
-//        
-//        // Busco
-//        prode.mostrarTickets();
-//        System.out.println("-------------------------");
-//        System.out.println("-------------------------");
-//        
-//        // Calculo los aciertos
-//        prode.mostrarAciertos( torneo );
-//        System.out.println("-------------------------");
-//        
-//        // Busco el usuario con más aciertos
-//        prode.usuarioGanador();
-//        
-//        System.out.println("-------------------------");
-//        System.out.println("-------------------------");
-//        System.out.println("GRACIAS POR USAR PRODE APP");
-//        System.out.println("-------------------------");
+        ConexionDB.getTickets( prode.getUsuariosHashMap(), torneo );
+        
+        // Busco los tickets
+        prode.mostrarTickets();
+        System.out.println("-------------------------");
+        System.out.println("-------------------------");
+        
+        // Calculo los aciertos y busco el usuario ganador
+        prode.calcularPuntaje( torneo );
+        System.out.println("-------------------------");
+        
+        // Muestro la tabla de posiciones de los usuarios -- NO FUNCIONA BIEN
+        prode.listaPosicionesUsuarios();
+        
+        System.out.println("-------------------------");
+        System.out.println("-------------------------");
+        System.out.println("GRACIAS POR USAR PRODE APP");
+        System.out.println("-------------------------");
+        System.out.println("DESARROLLADO POR KEVIN J. H. FIRMANI");
     }
 }

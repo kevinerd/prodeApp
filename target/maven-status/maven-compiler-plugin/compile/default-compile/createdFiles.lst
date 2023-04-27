@@ -1,6 +1,5 @@
 com\kevinjf\prodeapp\entidades\Ticket.class
 com\kevinjf\prodeapp\entidades\Prode.class
-com\kevinjf\prodeapp\entidades\Ronda.class
 com\kevinjf\prodeapp\entidades\Usuario.class
 com\kevinjf\prodeapp\MainClass.class
 com\kevinjf\prodeapp\entidades\Partido.class
@@ -9,4 +8,5 @@ com\kevinjf\prodeapp\entidades\Equipo.class
 com\kevinjf\prodeapp\enumeracion\ResultadoEnum.class
 com\kevinjf\prodeapp\ConexionDB.class
 com\kevinjf\prodeapp\ConexionDB$1.class
+com\kevinjf\prodeapp\entidades\Prode$2.class
 com\kevinjf\prodeapp\entidades\Torneo.class

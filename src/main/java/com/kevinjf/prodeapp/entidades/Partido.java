@@ -1,8 +1,5 @@
 package com.kevinjf.prodeapp.entidades;
 
-import com.kevinjf.prodeapp.enumeracion.ResultadoEnum;
-import java.util.Objects;
-
 public class Partido {
     private int id;
     private int numFase;
@@ -79,21 +76,6 @@ public class Partido {
 
     public void setEquipo2( Equipo equipo2 ) {
         this.equipo2 = equipo2;
-    }
-    
-    // PROCESO EL RESULTADO DE CADA PARTIDO PARA SABER QUIÉN GANÓ
-    public ResultadoEnum resultadoPartido() { 
-        ResultadoEnum resultadoPartido = null;
-        if (golesEq1 > golesEq2) {
-            resultadoPartido = ResultadoEnum.GANA;
-        }
-        if (golesEq1 < golesEq2) {
-            resultadoPartido = ResultadoEnum.PIERDE;
-        }
-        if (Objects.equals(golesEq1, golesEq2)) {
-            resultadoPartido = ResultadoEnum.EMPATE;
-        }
-        return resultadoPartido;
     }
     
     @Override

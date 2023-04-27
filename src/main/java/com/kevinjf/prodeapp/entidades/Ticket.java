@@ -11,7 +11,8 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(Usuario user, Partido partido, ResultadoEnum pronostico) {
+    public Ticket( int id, Usuario user, Partido partido, ResultadoEnum pronostico ) {
+        this.id = id;
         this.user = user;
         this.partido = partido;
         this.pronostico = pronostico;
@@ -21,7 +22,7 @@ public class Ticket {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId( int id ) {
         this.id = id;
     }
 
@@ -29,7 +30,7 @@ public class Ticket {
         return user;
     }
 
-    public void setUser(Usuario user) {
+    public void setUser( Usuario user ) {
         this.user = user;
     }
 
@@ -37,7 +38,7 @@ public class Ticket {
         return partido;
     }
 
-    public void setPartido(Partido partido) {
+    public void setPartido( Partido partido ) {
         this.partido = partido;
     }
 
@@ -45,12 +46,12 @@ public class Ticket {
         return pronostico;
     }
 
-    public void setPronostico(ResultadoEnum pronostico) {
+    public void setPronostico( ResultadoEnum pronostico ) {
         this.pronostico = pronostico;
     }
 
     @Override
     public String toString() {
-        return "Ticket { " + "id = " + id + ", user = " + user + ", partido = " + partido + ", pronostico = " + pronostico + " }";
+        return "Ticket { " + "id = " + id + " " + user + " " + partido + ", pronostico = " + pronostico + " }";
     }
 }

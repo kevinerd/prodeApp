@@ -5,23 +5,21 @@ import java.util.HashMap;
 
 public class Torneo {
     private HashMap <Integer, Equipo> equiposHashMap;
-    private HashMap<Integer, Ronda> partidos;
+    private HashMap<Integer, Partido> partidosHashMap;
     private ArrayList<Partido> fase1 = new ArrayList();
     private ArrayList<Partido> fase2 = new ArrayList();
-//    private final int TOTAL_RONDAS = 4;
-    
 
     public Torneo() {
-        this.partidos = new HashMap<>();
+        this.partidosHashMap = new HashMap<>();
         this.equiposHashMap = new HashMap<>();
     }
 
-    public HashMap<Integer, Ronda> getPartidos() {
-        return partidos;
+    public HashMap<Integer, Partido> getPartidos() {
+        return partidosHashMap;
     }
 
-    public void setPartidos( HashMap<Integer, Ronda> partidos ) {
-        this.partidos = partidos;
+    public void setPartidos( HashMap<Integer, Partido> partidos ) {
+        this.partidosHashMap = partidos;
     }
 
     public HashMap<Integer, Equipo> getEquiposHashMap() {
@@ -47,22 +45,20 @@ public class Torneo {
     public void setFase2(ArrayList<Partido> fase2) {
         this.fase2 = fase2;
     }
-    
-    
 
-    // Metodo privado que recibe como argumento un Integer que es valor clave para buscar en esquiposHashMap. 
+    // Metodo que recibe como argumento un Integer que es valor clave para buscar en esquiposHashMap. 
     // Devuelve un objeto del tipo Equipo.
-    public Equipo buscarEquipo(Integer equipoKey){
+    public Equipo buscarEquipo( int equipoKey ) {
         Equipo equipoBuscado = new Equipo();
         equipoBuscado = this.equiposHashMap.get(equipoKey);
         return equipoBuscado;
     }
     
-    public Ronda buscarRonda(int rondaKey){
-        return this.partidos.get(rondaKey);
+    // Metodo que recibe como argumento un Integer que es valor clave para buscar en partidosHashMap. 
+    // Devuelve un objeto del tipo Partido.
+    public Partido buscarPartido( int partidoKey ) {
+        Partido partidoBuscado = new Partido();
+        partidoBuscado = this.partidosHashMap.get( partidoKey );
+        return partidoBuscado;
     }
-    
-//    public int getTOTAL_RONDAS() {
-//        return TOTAL_RONDAS;
-//    }
 }

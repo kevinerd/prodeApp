@@ -135,7 +135,7 @@ INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
 	(40752822,30,2);
 INSERT INTO prode_app.ticket (usuario_dni,partido_id,pronostico) VALUES
 	(40752822,31,2),
-	(40752822,3,3);
+	(40752822,32,3);
 -- FIN PERSONA 1
 
 -- PERSONA 2
